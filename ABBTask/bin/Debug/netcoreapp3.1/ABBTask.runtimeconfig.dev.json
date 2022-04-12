@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Vidya\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Vidya\\.nuget\\packages"
+    ]
+  }
+}

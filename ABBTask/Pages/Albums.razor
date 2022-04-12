@@ -1,0 +1,57 @@
+﻿@page "/Album"
+@using ABBTask.Data
+@using ABBTask.Model
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Grids
+
+
+<h3>Album Data</h3>
+<div style="width:1000px">
+
+    @if (albums == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UserId</th>
+                    <th>Id</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in albums)
+                {
+                    <tr>
+                        <td>@user.userId</td>
+                        <td>@user.id</td>
+                        <td>@user.title</td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code{
+
+
+    public List<Album> albums { get; set; }
+
+    [Inject]
+    public IAlbumServices AlbumServices { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        albums = (await AlbumServices.GetAlbums()).ToList();
+        
+
+    }
+
+}
+
+
+

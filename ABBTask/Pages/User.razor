@@ -1,0 +1,82 @@
+﻿@page "/user"
+
+@using ABBTask.Data
+@using static ABBTask.Model.Common
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Grids
+
+
+<h3>User Data</h3>
+
+<p>This component Used to Get the User related Data</p>
+
+<div style="width:1000px">
+
+        @if (users == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>UserName</th>
+                        <th>Email</th>
+                        <th>Street</th>
+                        <th>Suite</th>
+                        <th>City</th>
+                        <th>Lat</th>
+                        <th>Lng</th>
+                        <th>Phone</th>
+                        <th>Website</th>
+                        <th>CompanyName</th>
+                        <th>CatchPhrase</th>
+                        <th>bs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in users)
+                    {
+                        <tr>
+                            <td>@user.id</td>
+                            <td>@user.name</td>
+                            <td>@user.username</td>
+                            <td>@user.email</td>
+                            <td>@user.address.street</td>
+                            <td>@user.address.suite</td>
+                            <td>@user.address.city</td>
+                            <td>@user.address.geo.lat</td>
+                            <td>@user.address.geo.lng</td>
+                            <td>@user.phone</td>
+                            <td>@user.website</td>
+                            <td>@user.company.name</td>
+                            <td>@user.company.catchPhrase</td>
+                            <td>@user.company.bs</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+</div>
+@code{
+
+
+    public List<Users> users { get; set; }
+
+    [Inject]
+    public IUserService UserService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = (await UserService.GetUsers()).ToList();
+        
+    }
+
+}
+
+
+

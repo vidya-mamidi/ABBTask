@@ -1,0 +1,60 @@
+﻿@page "/Photo"
+@using ABBTask.Data
+@using static ABBTask.Model.Common
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Grids
+
+
+<h3>Album Data</h3>
+<div style="width:1000px">
+
+    @if (Photos == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>AblumId</th>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>URL</th>
+                    <th>ThumbnailUrl</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Photos)
+                {
+                    <tr>
+                        <td>@user.albumId</td>
+                        <td>@user.id</td>
+                        <td>@user.title</td>
+                        <td>@user.url</td>
+                        <td>@user.thumbnailUrl</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code{
+
+
+    public List<Photos> Photos { get; set; }
+
+    [Inject]
+    public IPhotoService photoService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Photos = (await photoService.GetPhotos()).ToList();
+
+    }
+
+}
+
+
+
